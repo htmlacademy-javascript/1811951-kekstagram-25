@@ -8,5 +8,5 @@ const getRandInt = (min, max) => {
 
 //Функция для проверки максимальной длины строки. Будет использоваться для проверки длины введённого комментария, но должна быть универсальна.
 const getStrLen = (str, maxLen) => str.length <= maxLen;
-console.log(getRandInt(3, 4));
-console.log('hfjdkjs skdhhfsk', 3);
+getRandInt(3, 4);
+getStrLen('ghjfdk dfjjhg jfgh', 4);
