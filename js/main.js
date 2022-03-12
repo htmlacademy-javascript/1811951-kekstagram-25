@@ -61,11 +61,11 @@ const DATA = {
 };
 
 const getComments = () => {
-  const commentsList = [...DATA.comments]
-  const commentsTotal = getRandInt(1, DATA.comments.length)
-  const commentsPost = []
+  const commentsList = [...DATA.comments];
+  const commentsTotal = getRandInt(1, DATA.comments.length);
+  const commentsPost = [];
   while (commentsPost.length < commentsTotal) {
-    const getRandomComment = getRandInt(0, commentsList.length - 1)
+    const getRandomComment = getRandInt(0, commentsList.length - 1);
     commentsPost.push({
       id: commentsPost.length,
       name: DATA.names[commentsPost.length],
@@ -73,7 +73,7 @@ const getComments = () => {
       comment: commentsList[getRandomComment],
     });
     commentsList.splice(getRandomComment, 1);
-  };
+  }
   return commentsPost;
 };
 
@@ -88,6 +88,8 @@ const createPosts = () => {
       comments: getComments(),
     };
     post.push(post);
-  };
+  }
   return posts;
 };
+
+createPosts();
