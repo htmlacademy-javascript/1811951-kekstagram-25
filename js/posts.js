@@ -1,5 +1,5 @@
-import { DATA } from "./data.js";
-import { getRandInt } from "./utils.js";
+import { DATA } from './data.js';
+import { getRandInt } from './utils.js';
 
 //напишите необходимые функции для создания массива из 25 сгенерированных объектов
 
@@ -35,4 +35,4 @@ const createPosts = () => {
   return posts;
 };
 
-const postList = createPosts();
+createPosts();
