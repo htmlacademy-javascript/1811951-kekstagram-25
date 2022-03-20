@@ -35,4 +35,4 @@ const createPosts = () => {
   return posts;
 };
 
-createPosts();
+export { createPosts };
