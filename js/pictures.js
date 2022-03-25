@@ -1,19 +1,18 @@
 import {
-  createPosts
+  postList
 } from './posts.js';
 
 const pictures = document.querySelector('.pictures');
 const template = document
   .querySelector('#picture')
   .content.querySelector('.picture');
-const postsList = createPosts();
 
 const createPicture = (postInfo) => {
   const el = template.cloneNode(true);
   el.id = postInfo.id;
   el.querySelector('.picture__img').src = postInfo.url;
-  el.querySelector('.picture__likes').textContent = postInfo.likes;
-  el.querySelector('.picture__comments').textContent = postInfo.comments.length;
+  el.querySelector('.picture__likes').textContent = `${postInfo.likes}`;
+  el.querySelector('.picture__comments').textContent = `${postInfo.comments.length}`;
 
   return el;
 };
@@ -24,6 +23,6 @@ const renderPicture = (picture, container) => {
   container.append(fragment);
 };
 
-for (const i in postsList) {
-  renderPicture(createPicture(postsList[i]), pictures);
+for (const i in postList) {
+  renderPicture(createPicture(postList[i]), pictures);
 }

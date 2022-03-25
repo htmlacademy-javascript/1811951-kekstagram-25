@@ -1,7 +1,8 @@
 import { DATA } from './data.js';
 import { getRandInt } from './utils.js';
 
-//напишите необходимые функции для создания массива из 25 сгенерированных объектов
+const FIRST_AVATAR_NUMBER = 1;
+const LAST_AVATAR_NUMBER = 6;
 
 const getComments = () => {
   const commentsList = [...DATA.comments];
@@ -12,7 +13,7 @@ const getComments = () => {
     commentsPost.push({
       id: commentsPost.length,
       name: DATA.names[commentsPost.length],
-      avatar: `photos/${commentsPost.length}.svg`,
+      avatar: `img/avatar-${getRandInt(FIRST_AVATAR_NUMBER, LAST_AVATAR_NUMBER)}.svg`,
       comment: commentsList[getRandomComment],
     });
     commentsList.splice(getRandomComment, 1);
@@ -35,4 +36,6 @@ const createPosts = () => {
   return posts;
 };
 
-export { createPosts };
+const postList = createPosts();
+
+export { postList };
