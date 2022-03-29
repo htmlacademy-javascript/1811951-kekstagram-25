@@ -1,4 +1,7 @@
-//Функция, возвращающая случайное целое число из переданного диапазона включительно.
+const KEYS = {
+  esc: 27
+}
+
 const getRandInt = (min, max) => {
   if (min < 0 || max < 0) {
     return 'Рип. Оба числа должны быть больше нуля';
@@ -6,7 +9,6 @@ const getRandInt = (min, max) => {
   return Math.floor(min + Math.random() * (max - min + 1));
 };
 
-//Функция для проверки максимальной длины строки. Будет использоваться для проверки длины введённого комментария, но должна быть универсальна.
 const getStrLen = (str, maxLen) => str.length <= maxLen;
 
 const createItem = (tag, className, text) => {
@@ -19,4 +21,4 @@ const createItem = (tag, className, text) => {
   return item;
 };
 
-export { getRandInt, getStrLen, createItem };
+export { KEYS, getRandInt, getStrLen, createItem };
