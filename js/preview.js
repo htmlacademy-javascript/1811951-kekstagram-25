@@ -2,7 +2,7 @@ import {
   postList
 } from './posts.js';
 import {
-  createItem
+  KEYS, createItem
 } from './utils.js';
 
 const AVATAR = {
@@ -10,7 +10,7 @@ const AVATAR = {
   height: 35,
   alt: 'Культ коричневой субстанции'
 };
-const ESC = 27;
+
 const pictures = document.querySelector('.pictures');
 const preview = document.querySelector('.big-picture');
 const picture = preview.querySelector('.big-picture__img');
@@ -50,7 +50,7 @@ const createCommentList = (photo) => {
 const buttonCloseClickHandler = () => closeModal();
 
 const documentKeyDownHandler = (e) => {
-  if (e.keyCode === ESC) {
+  if (e.keyCode === KEYS.esc) {
     closeModal();
   }
 };
