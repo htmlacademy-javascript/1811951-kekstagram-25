@@ -1,6 +1,6 @@
 const KEYS = {
   esc: 27
-}
+};
 
 const getRandInt = (min, max) => {
   if (min < 0 || max < 0) {
