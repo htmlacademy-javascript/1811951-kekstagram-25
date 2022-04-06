@@ -1,6 +1,12 @@
 import {
   KEYS
 } from './utils.js';
+import {
+  effects
+} from './effects.js';
+import {
+  scale
+} from './scale.js';
 
 const HASHTAGS_CONFIG = {
   len: 20,
@@ -14,9 +20,13 @@ const buttonClose = imageEditor.querySelector('#upload-cancel');
 const postHashtags = imageEditor.querySelector('.text__hashtags');
 const postDescription = imageEditor.querySelector('.text__description');
 const submit = imageEditor.querySelector('#upload-submit');
+const photo = document.querySelector('.img-upload__preview img');
+const level = document.querySelector('.img-upload__effect-level');
 
 const formReset = () => {
   form.reset();
+  level.classList.add('hidden');
+  level.noUiSlider.reset();
   postHashtags.style = 'outlineColor: webkit-focus-ring-color';
   postDescription.style = 'outlineColor: webkit-focus-ring-color';
 };
@@ -24,6 +34,7 @@ const formReset = () => {
 const imageUploadClickHandler = () => {
   document.body.classList.add('modal-open');
   imageEditor.classList.remove('hidden');
+  scale(photo);
 };
 
 const closeImageUpload = () => {
@@ -101,6 +112,7 @@ const formValiditySubmitHandler = () => {
   checkFormValidity(postDescription);
 };
 
+effects(level, photo);
 postDescription.addEventListener('change', validatePostDescription);
 submit.addEventListener('click', formValiditySubmitHandler);
 postHashtags.addEventListener('change', validatePostHashtags);
