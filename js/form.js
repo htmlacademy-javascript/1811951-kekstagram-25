@@ -1,6 +1,12 @@
-import { KEYS } from './utils.js';
-import { effects } from './effects.js';
-import { scale } from './scale.js';
+import {
+  KEYS
+} from './utils.js';
+import {
+  effects
+} from './effects.js';
+import {
+  scale
+} from './scale.js';
 
 const HASHTAGS_CONFIG = {
   len: 20,
@@ -15,7 +21,7 @@ const postHashtags = imageEditor.querySelector('.text__hashtags');
 const postDescription = imageEditor.querySelector('.text__description');
 const submit = imageEditor.querySelector('#upload-submit');
 const photo = document.querySelector('.img-upload__preview img');
-const level = document.querySelector('.img-upload__effect-level'); 
+const level = document.querySelector('.img-upload__effect-level');
 
 const formReset = () => {
   form.reset();
