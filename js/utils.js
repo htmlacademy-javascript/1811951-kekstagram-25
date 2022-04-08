@@ -9,8 +9,6 @@ const getRandInt = (min, max) => {
   return Math.floor(min + Math.random() * (max - min + 1));
 };
 
-const getStrLen = (str, maxLen) => str.length <= maxLen;
-
 const createItem = (tag, className, text) => {
   const item = document.createElement(tag);
   item.classList.add(className);
@@ -21,4 +19,4 @@ const createItem = (tag, className, text) => {
   return item;
 };
 
-export { KEYS, getRandInt, getStrLen, createItem };
+export { KEYS, getRandInt, createItem };

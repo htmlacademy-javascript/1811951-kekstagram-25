@@ -1,4 +1,3 @@
-import { DATA } from './data.js';
 import { getRandInt } from './utils.js';
 
 const FIRST_AVATAR_NUMBER = 1;
