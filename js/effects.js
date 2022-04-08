@@ -1,4 +1,5 @@
 export const effects = (level, photo) => {
+  const DIVIDER = 100;
   const effectsList = document.querySelector('.effects__list');
   const effectLevelValue = document.querySelector('.effect-level__value');
   let currentEffect;
@@ -9,23 +10,23 @@ export const effects = (level, photo) => {
     let inputValue;
     switch (currentEffect) {
       case 'chrome':
-        inputValue = value / 100;
+        inputValue = value / DIVIDER;
         filterValue = `grayscale(${inputValue})`;
         break;
       case 'sepia':
-        inputValue = value / 100;
+        inputValue = value / DIVIDER;
         filterValue = `sepia(${inputValue})`;
         break;
       case 'marvin':
-        inputValue = Math.floor((value * 100) / 100);
+        inputValue = Math.floor((value * 100) / DIVIDER);
         filterValue = `invert(${inputValue}%)`;
         break;
       case 'phobos':
-        inputValue = (value * 3) / 100;
+        inputValue = (value * 3) / DIVIDER;
         filterValue = `blur(${inputValue}px)`;
         break;
       case 'heat':
-        inputValue = (value * 3) / 100;
+        inputValue = (value * 3) / DIVIDER;
         filterValue = `brightness(${inputValue})`;
         break;
       case 'none':

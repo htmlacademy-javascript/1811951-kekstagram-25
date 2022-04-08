@@ -1,7 +1,4 @@
 import {
-  postList
-} from './posts.js';
-import {
   KEYS, createItem
 } from './utils.js';
 
@@ -12,7 +9,6 @@ const AVATAR = {
 };
 
 const MAX_INIT_COMMENT_NUMBER = 5;
-const pictures = document.querySelector('.pictures');
 const preview = document.querySelector('.big-picture');
 const picture = preview.querySelector('.big-picture__img');
 const description = preview.querySelector('.social__caption');
@@ -61,7 +57,7 @@ const createCommentList = (photo) => {
   for (let i = renderedCommentNumber; i < nextRenderedCommentNumber; i++) {
     const listItem = createItem('li', 'social__comment');
     const avatar = createCommentAvatar(photo.comments[i]);
-    const text = createItem('p', 'social__text', photo.comments[i].comment);
+    const text = createItem('p', 'social__text', photo.comments[i].message);
     listItem.append(avatar);
     listItem.append(text);
     list.append(listItem);
@@ -123,13 +119,13 @@ const showPreview = (photo) => {
   setEventListeners(photo);
 };
 
-const previewClickHandler = (e) => {
+const previewClickHandler = (e, postList) => {
   const target = e.target;
   if (target.closest('.picture')) {
     const pictureId = target.closest('.picture').id;
-    const post = postList[pictureId - 1];
+    const post = postList[pictureId];
     showPreview(post);
   }
 };
 
-pictures.addEventListener('click', previewClickHandler);
+export { previewClickHandler };
