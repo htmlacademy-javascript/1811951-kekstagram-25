@@ -1,8 +1,3 @@
-import {
-  postList
-} from './posts.js';
-
-const pictures = document.querySelector('.pictures');
 const template = document
   .querySelector('#picture')
   .content.querySelector('.picture');
@@ -23,6 +18,7 @@ const renderPicture = (picture, container) => {
   container.append(fragment);
 };
 
-for (const i in postList) {
-  renderPicture(createPicture(postList[i]), pictures);
-}
+export {
+  createPicture,
+  renderPicture
+};

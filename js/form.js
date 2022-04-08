@@ -7,6 +7,12 @@ import {
 import {
   scale
 } from './scale.js';
+import {
+  message
+} from './message.js';
+import {
+  serverSave
+} from './backend.js';
 
 const HASHTAGS_CONFIG = {
   len: 20,
@@ -48,7 +54,11 @@ const buttonCloseClickHandler = () => {
 };
 
 const imageUploadKeydownHandler = (e) => {
-  if (e.keyCode === KEYS.esc) {
+  if (
+    e.keyCode === KEYS.esc &&
+    document.activeElement !== postDescription &&
+    document.activeElement !== postHashtags
+  ) {
     closeImageUpload();
   }
 };
@@ -58,8 +68,6 @@ const validatePostHashtags = () => {
   let errorMessage = '';
   if (hashtags.length > HASHTAGS_CONFIG.amount) {
     errorMessage = 'Капец ты разошелся. 5 хэштегов и не больше!';
-  } else if (hashtags.length <= 1) {
-    errorMessage = 'Напиши хоть что-нибудь';
   } else if (postHashtags.value !== '') {
     for (const i in hashtags) {
       if (hashtags[i].charAt(0) !== HASHTAGS_CONFIG.firstChar) {
@@ -82,7 +90,7 @@ const validatePostHashtags = () => {
     }
   }
   postHashtags.setCustomValidity(errorMessage);
-  postHashtags.reportValidity();
+  return postHashtags.reportValidity();
 };
 
 const checkFormValidity = (input) => {
@@ -95,26 +103,45 @@ const validatePostDescription = () => {
   const description = postDescription.value;
   let errorMessage = '';
 
-  if (description.length < 50) {
-    errorMessage = 'Описание или я вычислю тебя по ip';
-  } else if (description.length > 140) {
+  if (description.length > 140) {
     errorMessage = 'Ну ты Пушкин, просто обалдеть!';
   }
 
   postDescription.setCustomValidity(errorMessage);
-  postDescription.reportValidity();
+  return postDescription.reportValidity();
 };
 
-const formValiditySubmitHandler = () => {
+const validator = () => {
   validatePostHashtags();
   validatePostDescription();
   checkFormValidity(postHashtags);
   checkFormValidity(postDescription);
 };
 
+const formSaveAction = (type) => {
+  submit.disabled = false;
+  closeImageUpload();
+  message(`${type}`);
+};
+
+const formSubmitHandler = (e) => {
+  e.preventDefault();
+  validator();
+
+  if (validatePostDescription() && validatePostHashtags()) {
+    submit.disabled = true;
+    const data = new FormData(form);
+    serverSave(
+      data,
+      () => formSaveAction('success'),
+      () => formSaveAction('error')
+    );
+  }
+};
+
 effects(level, photo);
 postDescription.addEventListener('change', validatePostDescription);
-submit.addEventListener('click', formValiditySubmitHandler);
+form.addEventListener('submit', formSubmitHandler);
 postHashtags.addEventListener('change', validatePostHashtags);
 imageUpload.addEventListener('change', imageUploadClickHandler);
 buttonClose.addEventListener('click', buttonCloseClickHandler);
