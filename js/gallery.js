@@ -8,6 +8,7 @@ import {
 import {
   previewClickHandler
 } from './preview.js';
+import { filters } from './filters.js';
 
 const pictures = document.querySelector('.pictures');
 
@@ -20,6 +21,14 @@ const createGallery = (postList) => {
   });
 };
 
+const deleteGallery = () => {
+  const pictureItems = pictures.querySelectorAll('.picture');
+  pictureItems.forEach((picture) => picture.remove());
+};
+
 serverRequest((postList) => {
   createGallery(postList);
+  filters(postList);
 });
+
+export { createGallery, deleteGallery };

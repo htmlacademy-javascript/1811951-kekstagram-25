@@ -19,4 +19,22 @@ const createItem = (tag, className, text) => {
   return item;
 };
 
-export { KEYS, getRandInt, createItem };
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+};
+
+const debounce = (callback, timeOut = 500) => {
+  let lastTimeout;
+  return (...args) => {
+    clearTimeout(lastTimeout);
+    lastTimeout = setTimeout(() => callback.apply(this, args), timeOut);
+  };
+};
+
+export { KEYS, getRandInt, debounce, shuffleArray, createItem };
