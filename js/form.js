@@ -4,15 +4,14 @@ import {
 import {
   effects
 } from './effects.js';
-import {
-  scale
-} from './scale.js';
+import { scaleSet, scaleReset } from './scale.js';
 import {
   message
 } from './message.js';
 import {
   serverSave
 } from './backend.js';
+import { imageLoader } from './imageLoader.js';
 
 const HASHTAGS_CONFIG = {
   len: 20,
@@ -31,16 +30,20 @@ const level = document.querySelector('.img-upload__effect-level');
 
 const formReset = () => {
   form.reset();
-  level.classList.add('hidden');
   level.noUiSlider.reset();
   postHashtags.style = 'outlineColor: webkit-focus-ring-color';
   postDescription.style = 'outlineColor: webkit-focus-ring-color';
+  photo.src = 'img/upload-default-image.jpg';
+  photo.style = '';
+  photo.className = '';
+  level.classList.add('hidden');
+  scaleReset(photo);
 };
 
 const imageUploadClickHandler = () => {
   document.body.classList.add('modal-open');
   imageEditor.classList.remove('hidden');
-  scale(photo);
+  imageLoader(imageUpload, photo);
 };
 
 const closeImageUpload = () => {
@@ -140,6 +143,7 @@ const formSubmitHandler = (e) => {
 };
 
 effects(level, photo);
+scaleSet(photo);
 postDescription.addEventListener('change', validatePostDescription);
 form.addEventListener('submit', formSubmitHandler);
 postHashtags.addEventListener('change', validatePostHashtags);
