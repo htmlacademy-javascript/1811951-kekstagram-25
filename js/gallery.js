@@ -10,25 +10,25 @@ import {
 } from './preview.js';
 import { filters } from './filters.js';
 
-const pictures = document.querySelector('.pictures');
+const picturesElement = document.querySelector('.pictures');
 
 const createGallery = (postList) => {
   for (const i in postList) {
-    renderPicture(createPicture(postList[i]), pictures);
+    renderPicture(createPicture(postList[i]), picturesElement);
   }
-  pictures.addEventListener('click', (e) => {
-    previewClickHandler(e, postList);
-  });
 };
 
 const deleteGallery = () => {
-  const pictureItems = pictures.querySelectorAll('.picture');
-  pictureItems.forEach((picture) => picture.remove());
+  const pictureItemsElement = picturesElement.querySelectorAll('.picture');
+  pictureItemsElement.forEach((picture) => picture.remove());
 };
 
 serverRequest((postList) => {
   createGallery(postList);
   filters(postList);
+  picturesElement.addEventListener('click', (e) => {
+    previewClickHandler(e, postList);
+  });
 });
 
 export { createGallery, deleteGallery };

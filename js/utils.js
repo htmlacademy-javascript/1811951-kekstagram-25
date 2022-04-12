@@ -1,13 +1,7 @@
 const KEYS = {
   esc: 27
 };
-
-const getRandInt = (min, max) => {
-  if (min < 0 || max < 0) {
-    return 'Рип. Оба числа должны быть больше нуля';
-  }
-  return Math.floor(min + Math.random() * (max - min + 1));
-};
+const DEFAULT_TIME = 500;
 
 const createItem = (tag, className, text) => {
   const item = document.createElement(tag);
@@ -29,7 +23,7 @@ const shuffleArray = (array) => {
   return array;
 };
 
-const debounce = (callback, timeOut = 500) => {
+const debounce = (callback, timeOut = DEFAULT_TIME) => {
   let lastTimeout;
   return (...args) => {
     clearTimeout(lastTimeout);
@@ -37,4 +31,4 @@ const debounce = (callback, timeOut = 500) => {
   };
 };
 
-export { KEYS, getRandInt, debounce, shuffleArray, createItem };
+export { KEYS, debounce, shuffleArray, createItem };

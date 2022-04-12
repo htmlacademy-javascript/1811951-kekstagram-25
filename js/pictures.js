@@ -1,9 +1,9 @@
-const template = document
+const templateElement = document
   .querySelector('#picture')
   .content.querySelector('.picture');
 
 const createPicture = (postInfo) => {
-  const el = template.cloneNode(true);
+  const el = templateElement.cloneNode(true);
   el.id = postInfo.id;
   el.querySelector('.picture__img').src = postInfo.url;
   el.querySelector('.picture__likes').textContent = `${postInfo.likes}`;

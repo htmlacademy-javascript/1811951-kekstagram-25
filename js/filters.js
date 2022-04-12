@@ -2,9 +2,9 @@ import { shuffleArray, debounce } from './utils.js';
 import { createGallery, deleteGallery } from './gallery.js';
 
 export const filters = (postList) => {
-  const container = document.querySelector('.img-filters');
-  const form = container.querySelector('.img-filters__form');
-  container.classList.remove('img-filters--inactive');
+  const containerElement = document.querySelector('.img-filters');
+  const formElement = containerElement.querySelector('.img-filters__form');
+  containerElement.classList.remove('img-filters--inactive');
 
   const FILTER_OPTIONS = {
     default: 'filter-default',
@@ -35,15 +35,15 @@ export const filters = (postList) => {
 
   const formClickHandler = (e) => {
     const button = e.target.closest('button:not(.img-filters__button--active)');
-    const activeButton = form.querySelector('.img-filters__button--active');
+    const activeButtonElement = formElement.querySelector('.img-filters__button--active');
     const buttonDebounce = debounce(activateFilter);
 
     if (button) {
-      activeButton.classList.remove('img-filters__button--active');
+      activeButtonElement.classList.remove('img-filters__button--active');
       button.classList.add('img-filters__button--active');
       buttonDebounce(button.id);
     }
   };
 
-  form.addEventListener('click', formClickHandler);
+  formElement.addEventListener('click', formClickHandler);
 };
