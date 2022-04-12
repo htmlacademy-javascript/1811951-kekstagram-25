@@ -2,11 +2,11 @@ import {
   KEYS
 } from './utils.js';
 
-export const message = (type) => {
-  const template = document
+export const getMessage = (type) => {
+  const templateElement = document
     .querySelector(`#${type}`)
     .content.querySelector(`.${type}`);
-  const letter = template.cloneNode(true);
+  const letter = templateElement.cloneNode(true);
   document.body.append(letter);
 
   const letterClickHandler = () => {

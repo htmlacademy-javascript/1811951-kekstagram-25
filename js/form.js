@@ -6,7 +6,7 @@ import {
 } from './effects.js';
 import { scaleSet, scaleReset } from './scale.js';
 import {
-  message
+  getMessage
 } from './message.js';
 import {
   serverSave
@@ -18,37 +18,37 @@ const HASHTAGS_CONFIG = {
   amount: 5,
   firstChar: '#'
 };
-const form = document.querySelector('.img-upload__form');
-const imageUpload = form.querySelector('#upload-file');
-const imageEditor = form.querySelector('.img-upload__overlay');
-const buttonClose = imageEditor.querySelector('#upload-cancel');
-const postHashtags = imageEditor.querySelector('.text__hashtags');
-const postDescription = imageEditor.querySelector('.text__description');
-const submit = imageEditor.querySelector('#upload-submit');
-const photo = document.querySelector('.img-upload__preview img');
-const level = document.querySelector('.img-upload__effect-level');
+const formElement = document.querySelector('.img-upload__form');
+const imageUploadElement = formElement.querySelector('#upload-file');
+const imageEditorElement = formElement.querySelector('.img-upload__overlay');
+const buttonCloseElement = imageEditorElement.querySelector('#upload-cancel');
+const postHashtagsElement = imageEditorElement.querySelector('.text__hashtags');
+const postDescriptionElement = imageEditorElement.querySelector('.text__description');
+const submitElement = imageEditorElement.querySelector('#upload-submit');
+const photoElement = document.querySelector('.img-upload__preview img');
+const levelElement = document.querySelector('.img-upload__effect-level');
 
 const formReset = () => {
-  form.reset();
-  level.noUiSlider.reset();
-  postHashtags.style = 'outlineColor: webkit-focus-ring-color';
-  postDescription.style = 'outlineColor: webkit-focus-ring-color';
-  photo.src = 'img/upload-default-image.jpg';
-  photo.style = '';
-  photo.className = '';
-  level.classList.add('hidden');
-  scaleReset(photo);
+  formElement.reset();
+  levelElement.noUiSlider.reset();
+  postHashtagsElement.style = 'outlineColor: webkit-focus-ring-color';
+  postDescriptionElement.style = 'outlineColor: webkit-focus-ring-color';
+  photoElement.src = 'img/upload-default-image.jpg';
+  photoElement.style = '';
+  photoElement.className = '';
+  levelElement.classList.add('hidden');
+  scaleReset(photoElement);
 };
 
 const imageUploadClickHandler = () => {
   document.body.classList.add('modal-open');
-  imageEditor.classList.remove('hidden');
-  imageLoader(imageUpload, photo);
+  imageEditorElement.classList.remove('hidden');
+  imageLoader(imageUploadElement, photoElement);
 };
 
 const closeImageUpload = () => {
   document.body.classList.remove('modal-open');
-  imageEditor.classList.add('hidden');
+  imageEditorElement.classList.add('hidden');
   formReset();
 };
 
@@ -59,19 +59,19 @@ const buttonCloseClickHandler = () => {
 const imageUploadKeydownHandler = (e) => {
   if (
     e.keyCode === KEYS.esc &&
-    document.activeElement !== postDescription &&
-    document.activeElement !== postHashtags
+    document.activeElement !== postDescriptionElement &&
+    document.activeElement !== postHashtagsElement
   ) {
     closeImageUpload();
   }
 };
 
 const validatePostHashtags = () => {
-  const hashtags = postHashtags.value.trim().toLowerCase().split(' ');
+  const hashtags = postHashtagsElement.value.trim().toLowerCase().split(' ');
   let errorMessage = '';
   if (hashtags.length > HASHTAGS_CONFIG.amount) {
     errorMessage = 'Капец ты разошелся. 5 хэштегов и не больше!';
-  } else if (postHashtags.value !== '') {
+  } else if (postHashtagsElement.value !== '') {
     for (const i in hashtags) {
       if (hashtags[i].charAt(0) !== HASHTAGS_CONFIG.firstChar) {
         errorMessage = 'Хэштеги начинаются с #, дебил';
@@ -92,8 +92,8 @@ const validatePostHashtags = () => {
       }
     }
   }
-  postHashtags.setCustomValidity(errorMessage);
-  return postHashtags.reportValidity();
+  postHashtagsElement.setCustomValidity(errorMessage);
+  return postHashtagsElement.reportValidity();
 };
 
 const checkFormValidity = (input) => {
@@ -103,28 +103,28 @@ const checkFormValidity = (input) => {
 };
 
 const validatePostDescription = () => {
-  const description = postDescription.value;
+  const description = postDescriptionElement.value;
   let errorMessage = '';
 
   if (description.length > 140) {
     errorMessage = 'Ну ты Пушкин, просто обалдеть!';
   }
 
-  postDescription.setCustomValidity(errorMessage);
-  return postDescription.reportValidity();
+  postDescriptionElement.setCustomValidity(errorMessage);
+  return postDescriptionElement.reportValidity();
 };
 
 const validator = () => {
   validatePostHashtags();
   validatePostDescription();
-  checkFormValidity(postHashtags);
-  checkFormValidity(postDescription);
+  checkFormValidity(postHashtagsElement);
+  checkFormValidity(postDescriptionElement);
 };
 
 const formSaveAction = (type) => {
-  submit.disabled = false;
+  submitElement.disabled = false;
   closeImageUpload();
-  message(`${type}`);
+  getMessage(`${type}`);
 };
 
 const formSubmitHandler = (e) => {
@@ -132,8 +132,8 @@ const formSubmitHandler = (e) => {
   validator();
 
   if (validatePostDescription() && validatePostHashtags()) {
-    submit.disabled = true;
-    const data = new FormData(form);
+    submitElement.disabled = true;
+    const data = new FormData(formElement);
     serverSave(
       data,
       () => formSaveAction('success'),
@@ -142,11 +142,11 @@ const formSubmitHandler = (e) => {
   }
 };
 
-effects(level, photo);
-scaleSet(photo);
-postDescription.addEventListener('change', validatePostDescription);
-form.addEventListener('submit', formSubmitHandler);
-postHashtags.addEventListener('change', validatePostHashtags);
-imageUpload.addEventListener('change', imageUploadClickHandler);
-buttonClose.addEventListener('click', buttonCloseClickHandler);
+effects(levelElement, photoElement);
+scaleSet(photoElement);
+postDescriptionElement.addEventListener('change', validatePostDescription);
+formElement.addEventListener('submit', formSubmitHandler);
+postHashtagsElement.addEventListener('change', validatePostHashtags);
+imageUploadElement.addEventListener('change', imageUploadClickHandler);
+buttonCloseElement.addEventListener('click', buttonCloseClickHandler);
 document.addEventListener('keydown', imageUploadKeydownHandler);

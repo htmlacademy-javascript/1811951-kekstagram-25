@@ -9,12 +9,12 @@ const AVATAR = {
 };
 
 const MAX_INIT_COMMENT_NUMBER = 5;
-const preview = document.querySelector('.big-picture');
-const picture = preview.querySelector('.big-picture__img');
-const description = preview.querySelector('.social__caption');
-const commentsList = preview.querySelector('.social__comments');
-const commentsLoaderBtn = preview.querySelector('.social__comments-loader');
-const buttonClose = preview.querySelector('.big-picture__cancel');
+const previewElement = document.querySelector('.big-picture');
+const pictureElement = previewElement.querySelector('.big-picture__img');
+const descriptionElement = previewElement.querySelector('.social__caption');
+const commentsListElement = previewElement.querySelector('.social__comments');
+const commentsLoaderBtnElement = previewElement.querySelector('.social__comments-loader');
+const buttonCloseElement = previewElement.querySelector('.big-picture__cancel');
 let renderedCommentNumber = 0;
 
 const createCommentAvatar = (comment) => {
@@ -70,12 +70,12 @@ const createCommentList = (photo) => {
 
 const setEventListeners = (photo) => {
   const commentsLoaderClickHandler = () => {
-    commentsList.append(createCommentList(photo));
+    commentsListElement.append(createCommentList(photo));
     setCommentsCounter(photo);
 
     if (photo.comments.length === renderedCommentNumber) {
-      commentsLoaderBtn.classList.add('hidden');
-      commentsLoaderBtn.removeEventListener(
+      commentsLoaderBtnElement.classList.add('hidden');
+      commentsLoaderBtnElement.removeEventListener(
         'click',
         commentsLoaderClickHandler
       );
@@ -83,15 +83,15 @@ const setEventListeners = (photo) => {
   };
 
   if (photo.comments.length <= MAX_INIT_COMMENT_NUMBER) {
-    commentsLoaderBtn.classList.add('hidden');
+    commentsLoaderBtnElement.classList.add('hidden');
   } else {
-    commentsLoaderBtn.classList.remove('hidden');
-    commentsLoaderBtn.addEventListener('click', commentsLoaderClickHandler);
+    commentsLoaderBtnElement.classList.remove('hidden');
+    commentsLoaderBtnElement.addEventListener('click', commentsLoaderClickHandler);
   }
 
   const closeModal = () => {
     document.body.classList.remove('modal-open');
-    preview.classList.add('hidden');
+    previewElement.classList.add('hidden');
   };
 
   const buttonCloseClickHandler = () => closeModal();
@@ -101,20 +101,20 @@ const setEventListeners = (photo) => {
     }
   };
 
-  buttonClose.addEventListener('click', buttonCloseClickHandler);
+  buttonCloseElement.addEventListener('click', buttonCloseClickHandler);
   document.addEventListener('keydown', documentKeyDownHandler);
 };
 
 const showPreview = (photo) => {
   renderedCommentNumber = 0;
-  commentsList.innerHTML = '';
+  commentsListElement.innerHTML = '';
   document.body.classList.add('modal-open');
-  preview.classList.remove('hidden');
-  picture.querySelector('img').src = photo.url;
-  picture.querySelector('img').alt = 'Если ты слепой, то ты не видешь';
-  preview.querySelector('.likes-count').textContent = `${photo.likes}`;
-  description.textContent = `${photo.description}`;
-  commentsList.append(createCommentList(photo));
+  previewElement.classList.remove('hidden');
+  pictureElement.querySelector('img').src = photo.url;
+  pictureElement.querySelector('img').alt = 'Если ты слепой, то ты не видешь';
+  previewElement.querySelector('.likes-count').textContent = `${photo.likes}`;
+  descriptionElement.textContent = `${photo.description}`;
+  commentsListElement.append(createCommentList(photo));
   setCommentsCounter(photo);
   setEventListeners(photo);
 };
